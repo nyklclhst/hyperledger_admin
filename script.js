@@ -1,11 +1,10 @@
 const request = new XMLHttpRequest();
 
 let uname = [];
-let Notissued = [];
 let issued = [];
 
 function getAllUser(){
-    request.open('GET','http://localhost:3001/api/userData',true);
+    request.open('GET','http://172.16.10.48:3001/api/userData',true);
     request.onload = function(){
         const data = JSON.parse(this.response);
         if(data.length == 0){
@@ -28,7 +27,7 @@ function getAllUser(){
 }
 
 function checkUser(){
-    request.open('GET','http://localhost:3001/api/system/identities',true);
+    request.open('GET','http://172.16.10.48:3001/api/system/identities',true);
     request.onload = function(){
         const data = JSON.parse(this.response);
         if(data.length == 0 || data.filter(username => username.name) === 'admin'){
@@ -48,11 +47,6 @@ function checkUser(){
                     issued.push(userData.name);
                     return;
                 }
-                if(userData.state != 'ISSUED' || userData.state != 'ACTIVATED'){
-                    console.log('NOT ISSUED or ACTIVATED:'+userData.name);
-                    Notissued.push(userData.name);
-                    return;
-                }
             })
             checking()
         }
@@ -62,9 +56,29 @@ function checkUser(){
 
 function checking(){
     const tbody = document.getElementById('tbl_body');
-    if(Notissued.length !== 0){
-        for(let i=0;i<uname.length;i++){
-            if(uname[i] == Notissued[i]){
+    let bool = false;
+    if(uname.length !== 0){
+        for(i=0;i<uname.length;i++){
+            for(j=0;j<issued.length;j++){
+                if(uname[i] == issued[j]){
+                    bool = true;
+                    break;
+                } else {
+                    bool = false;
+                }
+            }
+            if(bool){
+                console.log("true "+uname[i]);
+                const tr = tbody.appendChild(document.createElement('tr'));
+                tr.appendChild(document.createElement('td')).textContent=uname[i];
+                tr.appendChild(document.createElement('td')).textContent="tgl dibuat";
+                const td = tr.appendChild(document.createElement('td'));
+                const i1 = td.appendChild(document.createElement('i'));
+                i1.classList.add('fa','fa-check-circle');
+                i1.style.color = "aqua";
+                i1.textContent = " APPROVED";
+            } else {
+                console.log('false '+uname[i]);
                 const tr = tbody.appendChild(document.createElement('tr'));
                 tr.appendChild(document.createElement('td')).textContent=uname[i];
                 tr.appendChild(document.createElement('td')).textContent="tgl dibuat";
@@ -75,19 +89,46 @@ function checking(){
                 i1.textContent = " WAITING";
             }
         }
-    } else {
-        console.log('ALL USER ISSUED');
-        for(let i=0;i<uname.length;i++){
-            const tr = tbody.appendChild(document.createElement('tr'));
-            tr.appendChild(document.createElement('td')).textContent=uname[i];
-            tr.appendChild(document.createElement('td')).textContent="tgl dibuat";
-            const td = tr.appendChild(document.createElement('td'));
-            const i1 = td.appendChild(document.createElement('i'));
-            i1.classList.add('fa','fa-check-circle');
-            i1.style.color = "aqua";
-            i1.textContent = " APPROVED";
+    }
+}
+
+function issuedUser(userID){
+    const data = {
+        "participant":"model.userData#"+userID,
+        "userID": userID,
+        "options": {}
+    };
+
+    document.getElementById("loader").style.display = "block";
+    document.getElementById("form").style.display = "none";
+
+    request.onreadystatechange = function(){
+        var a;
+        if (request.readyState === 4 && request.status === 200) {
+            // Trick for making downloadable link
+            a = document.createElement('a');
+            Swal.fire("Congratulation", "You just registered! We will contact you soon for confirmation", "success");
+            a.href = window.URL.createObjectURL(request.response);
+            // Give filename you wish to download
+            a.download = userID+'.card';
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("form").style.display = "block";
+        }
+        if(request.readyState === 4 && request.status !== 200){
+            Swal.fire({ type: 'error', title: 'Oops...', text: 'Something went wrong!', footer: '<a href="#">Why do I have this issue?</a>'});
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("form").style.display = "block";
         }
     }
+    request.open('POST','http://172.16.10.48:3001/api/system/identities/issue',true);
+    request.setRequestHeader('Content-type','application/json');
+    request.setRequestHeader('Accept','application/octet-stream');
+    request.responseType = "blob";
+    request.send(JSON.stringify(data));
+    return true;
 }
 
 getAllUser();
