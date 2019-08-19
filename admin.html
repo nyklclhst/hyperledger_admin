@@ -13,7 +13,17 @@
     <link rel="stylesheet" type="text/css" href="assets1/css/mdb.css" />
     <link rel="stylesheet" type="text/css" href="assets1/css/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./script.js"></script>
 
     <title>Admin Page</title>
     <style>
@@ -32,19 +42,45 @@
             overflow-y: scroll;
             display: inline-block;
         }
+        /* Center the loader */
+        #loader {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        display: none;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+        }
+
     </style>
 </head>
 
 
 <body style="background-color:#1a2330; font-family: 'Montserrat',sans-serif">
-
     <!-- ini navbar -->
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">
             <img src="logosecu.png" width="40" height="40" alt="">
         </a>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
@@ -68,9 +104,8 @@
             </span>
         </div>
     </nav>
-
     <!-- ini tabel -->
-    <div class="container" style="padding-left:0px;padding-right: 0px;">
+    <div class="container" style="padding-left:0px;padding-right: 0px;" id="form">
     <div class="row pt-0">
         <div class="col-md-3">
             <IMG SRC="https://thumbs.gfycat.com/AccurateAgreeableDairycow.webp" style="width:300px;height:300px;">
@@ -235,23 +270,15 @@
                 </div>
                 <div class="container d-flex justify-content-center mt-5 mb-5">
                     <!-- ini yg bagian Approved -->
-                    <div class="card text-justify" style="margin-left: 0px;">
+                    <div class="card text-justify" style="margin-left: 0px; width: 500px;">
                         <div class="card-header" style="background-color: #245769; color:white;">
                             Input user you want to approve
                         </div>
                         <div class="card-body">
-                            <form class="form-inline">
-                                <div class="form-group mb-2">
-                                    <!-- <label for="username" class="sr-only">Email</label> -->
-                                    <label for="username" class="col-sm-3 col-form-label" style="color: black; margin-left: 20px;">Username</label>
-                                    <!-- <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com"> -->
-                                </div>
-                                <div class="form-group mx-sm-3 mb-2">
-                                    <!-- <label for="inputPassword2" class="sr-only">Password</label> -->
-                                    <input type="text" class="form-control" id="username" placeholder="Enter username..">
-                                </div>
-                                <button type="submit" class="btn btn-info mb-2" style="border-radius: 50px;">Approve</button>
-                            </form>
+                            <div class="form-group mx-sm-3 mb-2">
+                                <input type="text" class="form-control" id="username" placeholder="Enter username..">
+                            </div>
+                            <button type="submit" class="btn btn-info mb-2" style="border-radius: 50px;" onclick="return issuedUser(document.getElementById('username').value)">Approve</button>
                         </div>
                         <div class="card-footer text-muted" style="color:white; background-color:#245769; font-size:65%;">
                             Remember! Always check your m*nang :)
@@ -262,8 +289,9 @@
         </div>
     </div>
     </div>
+    <div id="loader"></div>
     <!-- Footer -->
-    <footer class="page-footer font-small  " style="background-color: #212121">
+    <footer class="page-footer font-small fixed-bottom" style="background-color: #212121;">
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3">© 2019 Copyright:
             <a href="#"> BlogecenErpan</a>
@@ -279,15 +307,6 @@
 
     $('.wrapper').css('max-height', tr10OffsetTop);
 </script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="./script.js"></script>
 <!-- <script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
 
 <script type="text/javascript" src="assets/js/table.js"></script>
@@ -297,69 +316,4 @@
     // $(document).ready(function() {
     //     $('#table_id1').DataTable();
     // });
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script>
-    function tapiBoong() {
-        alert("1 . 1 beno itu kampang");
-        alert("2 . 2 beno itu jalang");
-        alert("3 . 3 beno itu radang");
-        alert("1 . 2 . 3 beno itu MINANGGG!");
-    }
 </script>
