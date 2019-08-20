@@ -44,7 +44,7 @@
                 </li>
             </ul>
             <span class="navbar-text">
-                <a class="nav-link mr-3" href="#"  data-toggle="modal" data-target="#newMenuModal" style="border-radius: 50px; border-style:solid; font-size: 80%; border-width: 2px; border-color: white; color: white; background-color:#212529;">Pinjam Barang</a>
+                <a class="nav-link mr-3" href="#"  data-toggle="modal" data-target="#newMenuModal" style="border-radius: 50px; border-style:solid; font-size: 80%; border-width: 2px; border-color: white; color: white; background-color:#212529;">Daftar Barang</a>
             </span>
             <span style="color: white;" class="mr-3">|</span>
             <span class="navbar-text" style="color: white;">
@@ -112,7 +112,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newMenuModalLabel">Peminjaman barang</h5>
+                <h5 class="modal-title" id="newMenuModalLabel">+ Tambah barang</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -120,26 +120,18 @@
             <form>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="user" name="user" placeholder="Enter your name..">
+                        <input type="text" class="form-control" id="idbarang" name="idbarang" placeholder="Enter ID Barang">
                     </div>
                     <div class="form-group">
-                            <select name="idbarang" id="idbarang" class="form-control">
-                                <script>getDataforForm()</script>
-                            </select>
+                        <input type="text" class="form-control" id="namaBarang" name="namaBarang" placeholder="How many ...">
                     </div>
                     <div class="form-group">
-                        <input type="number" class="form-control" id="jumlah_brg" name="jumlah_brg" placeholder="how many ..">
-                    </div>
-                    <div class="form-group">
-                        <input type="number" class="form-control" id="contact" name="contact" placeholder="Enter your phone number..">
-                    </div>
-                    <div class="form-group">
-                            <input type="date" class="form-control" id="kembali" name="kembali" placeholder="when you want bringback the stuff ..">
+                        <input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang" placeholder="How many ...">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-info" onclick="return sendPeminjaman()">Add</button>
+                    <button type="submit" class="btn btn-info" onclick="return sendTambahBarang()">Add</button>
                 </div>
             </form>
         </div>

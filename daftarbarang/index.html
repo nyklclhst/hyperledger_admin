@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.css" />
     <link rel="stylesheet" type="text/css" href="../assets1/css/mdb.css" />
     <link rel="stylesheet" type="text/css" href="../assets/datatables/datatables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -43,7 +44,7 @@
                 </li>
             </ul>
             <span class="navbar-text">
-                <a class="nav-link mr-3" href="#" style="border-radius: 50px; border-style:solid; font-size: 80%; border-width: 2px; border-color: white; color: white; background-color:#212529;" data-toggle="modal" data-target="#newMenuModal">Pinjam Barang</a>
+                <a class="nav-link mr-3" href="#" style="border-radius: 50px; border-style:solid; font-size: 80%; border-width: 2px; border-color: white; color: white; background-color:#212529;" data-toggle="modal" data-target="#newMenuModal">Daftar Barang</a>
             </span>
             <span style="color: white;" class="mr-3">|</span>
             <span class="navbar-text" style="color: white;">
@@ -68,6 +69,7 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Nama Barang</th>
                                 <th scope="col">Jumlah Barang</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody id="tbl_body">
@@ -94,7 +96,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="newMenuModalLabel">Peminjaman barang</h5>
+                    <h5 class="modal-title" id="newMenuModalLabel">+ Tambah barang</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -102,26 +104,18 @@
                 <form>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="user" name="user" placeholder="Enter your name..">
+                            <input type="text" class="form-control" id="idbarang" name="idbarang" placeholder="Enter ID Barang">
                         </div>
                         <div class="form-group">
-                                <select name="idbarang" id="idbarang" class="form-control">
-                                    <script>getDataforForm()</script>
-                                </select>
+                            <input type="text" class="form-control" id="namaBarang" name="namaBarang" placeholder="How many ...">
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control" id="jumlah_brg" name="jumlah_brg" placeholder="how many ..">
-                        </div>
-                        <div class="form-group">
-                            <input type="number" class="form-control" id="contact" name="contact" placeholder="Enter your phone number..">
-                        </div>
-                        <div class="form-group">
-                                <input type="date" class="form-control" id="kembali" name="kembali" placeholder="when you want bringback the stuff ..">
+                            <input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang" placeholder="How many ...">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-info" onclick="return sendPeminjaman()">Add</button>
+                        <button type="submit" class="btn btn-info" onclick="return sendTambahBarang()">Add</button>
                     </div>
                 </form>
             </div>

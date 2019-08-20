@@ -23,6 +23,14 @@ function getDataBarang() {
                 tr.appendChild(document.createElement('td')).textContent=barang.IDBarang;
                 tr.appendChild(document.createElement('td')).textContent=barang.NamaBarang;
                 tr.appendChild(document.createElement('td')).textContent=barang.JumlahBarang;
+                const td = tr.appendChild(document.createElement('td'));
+                td.style.textAlign = 'center';
+                const i = td.appendChild(document.createElement('i'));
+                i.classList.add('fa','fa-pencil-square-o', 'fa-2x');
+                i.style.marginRight = '20px';
+                const i1 = td.appendChild(document.createElement('i'));
+                i1.classList.add('fa','fa-times','fa-2x');
+                i1.style.color = 'red';
             });
         }
         
@@ -30,32 +38,21 @@ function getDataBarang() {
     request.send();
 }
 
-function sendPeminjaman(){
-    var ID = Math.floor(Math.random() * 1000).toString();
-    while(ID.length < 5){
-        ID = 0 + ID;
-    }
-    ID = 'ID_' + ID;
+function sendTambahBarang(){
     var data = '';
     request.onreadystatechange = function(){
-       var name = document.getElementById('user').value;
-       var contact = document.getElementById('contact').value;
-       var jumlah = document.getElementById('jumlah_brg').value;
-       var id_bar = document.getElementById('idbarang').value;
-       var waktu = document.getElementById('kembali').value;
+       var idbarang = document.getElementById('idbarang').value;
+       var name = document.getElementById('namaBarang').value;
+       var jumlah = document.getElementById('jumlahBarang').value;
        const temp = '{ \
-        "$class": "model.DataPeminjaman",\
-        "IDPeminjaman": "'+ID+'",\
-        "NamaPeminjam": "'+name+'",\
-        "KontakPeminjam": "'+contact+'",\
-        "JumlahBarang": '+jumlah+',\
-        "Barang": "resource:model.DataBarang#'+id_bar+'",\
-        "Status": "DIPINJAM",\
-        "WaktuPengembalian": "'+waktu+'"\
+            "$class": "model.DataBarang",\
+            "IDBarang": '+idbarang+',\
+            "NamaBarang": '+name+',\
+            "JumlahBarang": '+jumlah+'\
         }';
        data = temp;
     };
-    request.open('POST','http://172.16.10.48:3001/api/DataPeminjaman', true);
+    request.open('POST','http://172.16.10.48:3001/api/DataBarang', true);
     request.setRequestHeader('Content-type','application/json');
     request.withCredentials = true;
     var corm = confirm("Yakin isinya sudah benar?");
@@ -66,30 +63,4 @@ function sendPeminjaman(){
     } else {
         return false;
     }
-}
-
-function getDataforForm(){
-    var request = new XMLHttpRequest();
-    request.open('GET','http://172.16.10.48:3001/api/DataBarang', true);
-    request.withCredentials = true;
-    request.onload = function (){
-        var data = JSON.parse(this.response);
-
-        const select = document.getElementById('idbarang');
-        if(data.length == 0){
-            const option = document.createElement('option');
-            option.setAttribute('value',null);
-            option.textContent = '<--- Data Kosong --->';
-            select.appendChild(option);
-            select.disabled = true;
-        } else {
-            data.forEach(barang => {
-                const option = document.createElement('option');
-                option.setAttribute('value',barang.IDBarang);
-                option.textContent = barang.NamaBarang;
-                select.appendChild(option);
-            });
-        }
-    };
-    request.send();
 }
