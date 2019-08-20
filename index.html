@@ -5,58 +5,314 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.css" />
+    <link href="assets/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/datatables/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets1/css/mdb.css" />
+    <link rel="stylesheet" type="text/css" href="assets1/css/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./script.js"></script>
+
+    <title>Admin Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:500&display=swap');
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            /* background-color: red; */
+            color: white;
+            text-align: center;
+        }
+        
+        .wrapper.overflow {
+            overflow-y: scroll;
+            display: inline-block;
+        }
+        /* Center the loader */
+        #loader {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        display: none;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+        }
+
+    </style>
 </head>
 
-<body class="container mt" style="background-color:black;">
-    <div class="container">
-        <!-- Button trigger modal -->
 
-        <button type="button" id="klik" style="margin-top: 300px; margin-left: 500px;" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" hidden>
-        Click Here :)
-        </button>
-        <div style="margin-top:300px;">
-            <h1 style="color:black; text-align: center;">HELP ME WITH THIS DEPRESSION</h1>
+<body style="background-color:#1a2330; font-family: 'Montserrat',sans-serif">
+    <!-- ini navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="logosecu.png" width="40" height="40" alt="">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="daftarbarang/">Barang</a>
+                        <a class="dropdown-item" href="daftarpinjaman/">Pinjaman</a>
+                        <a class="dropdown-item" href="../">User Page</a>
+                    </div>
+                </li>
+            </ul>
+            <!-- <span class="navbar-text">
+                <a class="nav-link mr-3" href="#" style="border-radius: 50px; border-style:solid; font-size: 80%; border-width: 2px; border-color: white; color: white; background-color:#212529;" data-toggle="modal" data-target="#newMenuModal">Pinjam Barang</a>
+            </span> -->
+            <span style="color: white;" class="mr-3">|</span>
+            <span class="navbar-text" style="color: white;">
+                    Blogcenerpan
+            </span>
         </div>
+    </nav>
+    <!-- ini tabel -->
+    <div class="container" style="padding-left:0px;padding-right: 0px;" id="form">
+    <div class="row pt-0">
+        <div class="col-md-3">
+            <IMG SRC="https://thumbs.gfycat.com/AccurateAgreeableDairycow.webp" style="width:300px;height:300px;">
+            <!-- ini log -->
+            <div class="card text-center ml-5 mt-2">
+                <div class="card-header" style="background-color: #421f22; color: white;">
+                    Logs
+                </div>
+                <div class="card-body">
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content" style="border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;">
-                    <div class="modal-header" style="background-color:white; border-color: white; border-style: solid; border-width: 2px; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                        <h5 class="modal-title" id="exampleModalLabel" style="color: black;">Hello n Welcome</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" style="color:black; background-color:white; text-align: center;">
-                        <strong> -- Is this your first time here ? --</strong>
-                    </div>
-                    <div class="modal-footer" style="background-color:white; border-color: white; border-style: solid; border-width: 2px;  border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
-                        <button type="button" class="btn btn-secondary third" style="margin-right: 350px">NO</button>
-                        <button type="button" class="btn btn-secondary">YES</button>
+                    <ul id="ul_id" class="list-group list-group-flush" style="height:100px;overflow:auto;">
+                        <!-- <li class="list-group-item">User 1</li>
+                        <li class="list-group-item">User 2</li>
+                        <li class="list-group-item">User 3</li>
+                        <li class="list-group-item">User 3</li>
+                        <li class="list-group-item">User 3</li>
+                        <li class="list-group-item">User 3</li>
+                        <li class="list-group-item">User 3</li>
+                        <li class="list-group-item">User 3</li>
+                        <li class="list-group-item">User 3</li>
+                        <li class="list-group-item">User 3</li>
+                        <li class="list-group-item">User 3</li>
+                        <li class="list-group-item">User 3</li>
+                        <li class="list-group-item">User 3</li>
+                        <li class="list-group-item">User 3</li>
+                        <li class="list-group-item">User 3</li>
+                        <li class="list-group-item">User 3</li> -->
+
+                    </ul>
+                </div>
+                <div class="card-footer text-muted" style="background-color: #421f22; font-size: 65%;">
+                    Remember! committing love is a CRIME!
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 pt-0 d-flex justify-content-center ">
+            <div class="container mt-0 ">
+                <div class="table-responsive mt-5 ">
+                    <label for="isipan " style="color: white; font-size: 200%" class="d-flex justify-content-center"><strong>Users</strong></label><br>
+
+                    <table class="table dataTable table-bordered table-rou table-hover table-dark table-fixed" id="table_id" style="font-size: 80%; height:20px; overflow-y:auto;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Username</th>
+                                <th scope="col">Date Created</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbl_body">
+                            <!-- <tr>
+                                <td>
+                                    ini Username
+                                </td>
+                                <td>
+                                    ini waktu dibuat
+                                </td>
+                                <td>
+                                    <i class="fa fa-check-circle" style="color: aqua"></i> Approved
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ini Username
+                                </td>
+                                <td>
+                                    ini waktu dibuat
+                                </td>
+                                <td>
+                                    <i class="fa fa-times-circle" style="color: red"></i> Waiting
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ini Username
+                                </td>
+                                <td>
+                                    ini waktu dibuat
+                                </td>
+                                <td>
+                                    <i class="fa fa-times-circle" style="color: red"></i> Waiting
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ini Username
+                                </td>
+                                <td>
+                                    ini waktu dibuat
+                                </td>
+                                <td>
+                                    <i class="fa fa-times-circle" style="color: red"></i> Waiting
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ini Username
+                                </td>
+                                <td>
+                                    ini waktu dibuat
+                                </td>
+                                <td>
+                                    <i class="fa fa-times-circle" style="color: red"></i> Waiting
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ini Username
+                                </td>
+                                <td>
+                                    ini waktu dibuat
+                                </td>
+                                <td>
+                                    <i class="fa fa-times-circle" style="color: red"></i> Waiting
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ini Username
+                                </td>
+                                <td>
+                                    ini waktu dibuat
+                                </td>
+                                <td>
+                                    <i class="fa fa-times-circle" style="color: red"></i> Waiting
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ini Username
+                                </td>
+                                <td>
+                                    ini waktu dibuat
+                                </td>
+                                <td>
+                                    <i class="fa fa-times-circle" style="color: red"></i> Waiting
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ini Username
+                                </td>
+                                <td>
+                                    ini waktu dibuat
+                                </td>
+                                <td>
+                                    <i class="fa fa-times-circle" style="color: red"></i> Waiting
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ini Username
+                                </td>
+                                <td>
+                                    ini waktu dibuat
+                                </td>
+                                <td>
+                                    <i class="fa fa-times-circle" style="color: red"></i> Waiting
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="container d-flex justify-content-center mt-5 mb-5">
+                    <!-- ini yg bagian Approved -->
+                    <div class="card text-justify" style="margin-left: 0px; width: 500px;">
+                        <div class="card-header" style="background-color: #245769; color:white;">
+                            Input user you want to approve
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group mx-sm-3 mb-2">
+                                <input type="text" class="form-control" id="username" placeholder="Enter username..">
+                            </div>
+                            <button type="submit" class="btn btn-info mb-2" style="border-radius: 50px;" onclick="return issuedUser(document.getElementById('username').value)">Approve</button>
+                        </div>
+                        <div class="card-footer text-muted" style="color:white; background-color:#245769; font-size:65%;">
+                            Remember! Always check your m*nang :)
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        window.onload = function() {
-            var btn = document.getElementById('klik').click();
-        }
-    </script>
+    </div>
+    <div id="loader"></div>
+    <!-- Footer -->
+    <footer class="page-footer font-small fixed-bottom" style="background-color: #212121;">
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2019 Copyright:
+            <a href="#"> BlogecenErpan</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    const tr10 = ($("#process-manager-table tr:eq(10)"))[0];
+    const tr10OffsetTop = tr10.clientHeight + tr10.offsetTop;
 
+    $('.wrapper').css('max-height', tr10OffsetTop);
+</script>
+<!-- <script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
+
+<script type="text/javascript" src="assets/js/table.js"></script>
+ -->
 </html>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+    // $(document).ready(function() {
+    //     $('#table_id1').DataTable();
+    // });
+</script>
