@@ -71,6 +71,8 @@ function sendTambahBarang(){
 }
 
 function getTableData(id){
+    const form_edit = document.getElementById('form-edit');
+    form_edit.hidden = false;
     const table = document.getElementById('tbl_id');
     const rows = table.getElementsByTagName('tr');
     rows[id].id = id;
@@ -81,5 +83,37 @@ function getTableData(id){
     const data2 = table.rows[id].cells[2].innerHTML;
     console.log('cells 2: '+data2);
     const idbar = document.getElementById('idbar');
-    // const 
+    const namabar = document.getElementById('namabar');
+    const jumbar = document.getElementById('jumbar');
+    idbar.value = data;
+    namabar.value = data1;
+    jumbar.value = data2;
+}
+
+function updateBarang(){
+    var data = '';
+    const link = document.getElementById('idbar').value;
+    request.onreadystatechange = function(){
+       var idbarang = document.getElementById('idbar').value;
+       var name = document.getElementById('namabar').value;
+       var jumlah = document.getElementById('jumbar').value;
+       const temp = '{ \
+            "$class": "model.DataBarang",\
+            "IDBarang": "'+idbarang+'",\
+            "NamaBarang": "'+name+'",\
+            "JumlahBarang": '+jumlah+'\
+        }';
+       data = temp;
+    };
+    request.open('PUT','http://172.16.10.48:3001/api/DataBarang/'+link, true);
+    request.setRequestHeader('Content-type','application/json');
+    request.withCredentials = true;
+    var corm = confirm("Yakin isinya sudah benar?");
+    if(corm){
+        request.send(data);
+        alert("Data Berhasil diupdate, silahkan refresh halaman");
+        return true;
+    } else {
+        return false;
+    }
 }
