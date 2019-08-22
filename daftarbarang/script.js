@@ -28,9 +28,12 @@ function getDataBarang() {
                 const i = td.appendChild(document.createElement('i'));
                 i.classList.add('fa','fa-pencil-square-o', 'fa-2x');
                 i.style.marginRight = '20px';
+                i.style.cursor = 'pointer';
+                i.setAttribute('onclick','#');
                 const i1 = td.appendChild(document.createElement('i'));
                 i1.classList.add('fa','fa-times','fa-2x');
                 i1.style.color = 'red';
+                i1.style.cursor = 'pointer';
             });
         }
         
