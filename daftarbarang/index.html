@@ -16,6 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="../assets/js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../assets/datatables/datatables.min.js"></script>
     <script type="text/javascript" src="../assets/js/table.js"></script>
@@ -23,6 +24,48 @@
     <title>Seculab Data Center - Tabel barang</title>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Montserrat:500&display=swap');
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            /* background-color: red; */
+            color: white;
+            text-align: center;
+        }
+        
+        .wrapper.overflow {
+            overflow-y: scroll;
+            display: inline-block;
+        }
+        /* Center the loader */
+        #loader {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        display: none;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body style="background-color:#1a2330; font-family: 'Montserrat',sans-serif">
@@ -52,6 +95,7 @@
             </span>
         </div>
     </nav>
+    <div id="body">
     <!-- ini tabel -->
     <div class="container">
     <div class="row pt-0">
@@ -96,22 +140,20 @@
         <div class="row justify-content-md-center">
             <div class="col-md-6" style="border-color: white; border-radius: 5px; border-width: 1px; border-style: solid; background-color: #343a40; padding: 50px;">
                 <h3 style="color: ghostwhite;">Edit Data Barang</h3>
-                <form>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="idbar" name="idbar" placeholder="Enter ID Barang" readonly>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="namabar" name="namabar" placeholder="Enter Name">
-                        </div>
-                        <div class="form-group">
-                            <input type="number" class="form-control" id="jumbar" name="jumbar" placeholder="How many ...">
-                        </div>
-                        <div class="form-group" style="text-align: center">
-                            <button type="submit" class="btn btn-info" onclick="return updateBarang()">Save</button>
-                        </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="idbar" name="idbar" placeholder="Enter ID Barang" readonly>
                     </div>
-                </form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="namabar" name="namabar" placeholder="Enter Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="jumbar" name="jumbar" placeholder="How many ...">
+                    </div>
+                    <div class="form-group" style="text-align: center">
+                        <button type="submit" class="btn btn-info" onclick="updateBarang()">Save</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -138,13 +180,15 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-info" onclick="return sendTambahBarang()">Add</button>
+                        <button type="button" id="close_mdl" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-info" onclick="sendTambahBarang()">Add</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    </div>
+    <div id="loader"></div>
     <!-- Footer -->
     <footer class="page-footer font-small fixed-bottom" style="background-color: #212121;">
         <!-- Copyright -->
