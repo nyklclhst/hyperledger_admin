@@ -18,6 +18,7 @@ function getDataBarang() {
             h2.textContent = 'Data Kosong!';
             root.appendChild(h2);
         } else {
+            var count = 1;
             data.forEach(barang => {
                 const tr = tbody.appendChild(document.createElement('tr'));
                 tr.appendChild(document.createElement('td')).textContent=barang.IDBarang;
@@ -29,11 +30,12 @@ function getDataBarang() {
                 i.classList.add('fa','fa-pencil-square-o', 'fa-2x');
                 i.style.marginRight = '20px';
                 i.style.cursor = 'pointer';
-                i.setAttribute('onclick','#');
+                i.setAttribute('onclick','getTableData('+count+')');
                 const i1 = td.appendChild(document.createElement('i'));
                 i1.classList.add('fa','fa-times','fa-2x');
                 i1.style.color = 'red';
                 i1.style.cursor = 'pointer';
+                count++;
             });
         }
         
@@ -49,8 +51,8 @@ function sendTambahBarang(){
        var jumlah = document.getElementById('jumlahBarang').value;
        const temp = '{ \
             "$class": "model.DataBarang",\
-            "IDBarang": '+idbarang+',\
-            "NamaBarang": '+name+',\
+            "IDBarang": "'+idbarang+'",\
+            "NamaBarang": "'+name+'",\
             "JumlahBarang": '+jumlah+'\
         }';
        data = temp;
@@ -61,9 +63,23 @@ function sendTambahBarang(){
     var corm = confirm("Yakin isinya sudah benar?");
     if(corm){
         request.send(data);
-        alert("Terima Kasih. Jangan Lupa Dikembalikan yaa XD");
+        alert("Data Berhasil ditambahkan, silahkan refresh halaman");
         return true;
     } else {
         return false;
     }
+}
+
+function getTableData(id){
+    const table = document.getElementById('tbl_id');
+    const rows = table.getElementsByTagName('tr');
+    rows[id].id = id;
+    const data = table.rows[id].cells[0].innerHTML;
+    console.log('cells 0: '+data);
+    const data1 = table.rows[id].cells[1].innerHTML;
+    console.log('cells 1: '+data1);
+    const data2 = table.rows[id].cells[2].innerHTML;
+    console.log('cells 2: '+data2);
+    const idbar = document.getElementById('idbar');
+    // const 
 }
